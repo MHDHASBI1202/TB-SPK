@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rekomendasi Laptop untuk Mahasiswa IT</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+    <div class="container">
+        <h1>Rekomendasi Laptop untuk Mahasiswa IT</h1>
+        <div id="searchSection" style="margin-top: 40px;">
+            <h2>Selamat datang! Ingin melakukan apa?</h2>
+            <button onclick="showSearchOrRecommendation('search')">🔍 Searching</button><br><br>
+            <button onclick="showSearchOrRecommendation('recommendation')">📋 Rekomendasi</button>
+        </div>
+
+        <div id="searchForm" style="display: none; margin-top: 20px;">
+            <h3>Cari Berdasarkan:</h3>
+            <input type="text" id="searchName" placeholder="Nama Laptop atau Brand">
+        
+            <label for="priceMin">Rentang Harga (juta):</label>
+            <div style="display: flex; gap: 10px; align-items: center;">
+            <input type="range" id="priceMin" min="5" max="30" step="1" value="5" oninput="updatePriceLabel()">
+            <input type="range" id="priceMax" min="5" max="30" step="1" value="20" oninput="updatePriceLabel()">
+            </div>
+            <p>Harga antara: <span id="priceLabel">5 - 20</span> juta</p>
+        
+            <label for="ramSelect">RAM:</label>
+            <select id="ramSelect">
+                <option value="">Semua</option>
+                <option value="8">8 GB</option>
+                <option value="16">16 GB</option>
+                <option value="32">32 GB</option>
+            </select>
+        
+            <label for="cpuSelect">Tipe CPU:</label>
+            <select id="cpuSelect">
+                <option value="">Semua</option>
+                <option value="intel">Intel</option>
+                <option value="ryzen">Ryzen</option>
+            </select>
+        
+            <label for="storageSelect">Storage:</label>
+            <select id="storageSelect">
+                <option value="">Semua</option>
+                <option value="256">256 GB</option>
+                <option value="512">512 GB</option>
+                <option value="1000">1 TB</option>
+            </select>
+        
+            <label for="gpuSelect">GPU:</label>
+            <select id="gpuSelect">
+                <option value="">Semua</option>
+                <option value="Radeon">Radeon</option>
+                <option value="Intel">Intel</option>
+                <option value="Rtx">RTX</option>
+            </select>
+        
+            <button onclick="performSearch()">Cari</button>
+        </div>
+        
+        <div id="searchResults" style="margin-top: 20px;"></div>
+        
+        <form id="criteriaForm" style="display: none;">
+            <h2>Pilih Kriteria (Maksimal 5)</h2>
+            <div class="checkbox-group">
+                <div>
+                    <input type="checkbox" id="performance" value="performance" onclick="limitSelection()">
+                    <label for="performance">Performa (CPU, RAM)</label>
+                </div>
+                <div>
+                    <input type="checkbox" id="battery" value="battery" onclick="limitSelection()">
+                    <label for="battery">Daya Tahan Baterai</label>
+                </div>
+                <div>
+                    <input type="checkbox" id="price" value="price" onclick="limitSelection()">
+                    <label for="price">Harga</label>
+                </div>
+                <div>
+                    <input type="checkbox" id="weight" value="weight" onclick="limitSelection()">
+                    <label for="weight">Berat</label>
+                </div>
+                <div>
+                    <input type="checkbox" id="brand" value="brand" onclick="limitSelection()">
+                    <label for="brand">Merek</label>
+                </div>
+                <div>
+                    <input type="checkbox" id="graphics" value="graphics" onclick="limitSelection()">
+                    <label for="graphics">Kartu Grafis</label>
+                </div>
+                <div>
+                    <input type="checkbox" id="storage" value="storage" onclick="limitSelection()">
+                    <label for="storage">Penyimpanan</label>
+                </div>
+                <div>
+                    <input type="checkbox" id="display" value="display" onclick="limitSelection()">
+                    <label for="display">Ukuran Layar</label>
+                </div>
+            </div>
+            <button type="button" onclick="showWeightInputs()">Lanjutkan</button>
+        </form>
+
+        <div id="weightInputs" style="display:none;">
+            <h2>Masukkan Bobot Kriteria</h2>
+            <form id="weightForm"></form>
+            <button type="button" onclick="calculateRecommendation()">Hitung Rekomendasi</button>
+        </div>
+
+        <div id="result" style="display:none;">
+            <h2>Rekomendasi Laptop</h2>
+            <ul id="recommendationList"></ul>
+            <button type="button" onclick="resetProcess()">Mulai Ulang</button>
+        </div>
+
+        <div id="chartSection" style="display: none;">
+            <h2>Grafik Perbandingan Skor Rekomendasi</h2>
+            <canvas id="barChart" width="600" height="300"></canvas>
+          
+            <h2>Radar Chart Detail Laptop</h2>
+            <select id="laptopSelect" onchange="updateRadarChart()"></select>
+            <canvas id="radarChart" width="600" height="400"></canvas>
+        </div>
+
+        
+
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>
